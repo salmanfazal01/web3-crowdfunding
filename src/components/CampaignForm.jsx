@@ -1,5 +1,6 @@
 import { Box, Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import React, { useReducer } from "react";
+import { useStateContext } from "../context";
 
 const initialState = {
   name: "",
@@ -38,6 +39,7 @@ const CustomTextField = ({ title, error, ...other }) => (
 );
 
 export const CampaignForm = ({ handleSubmit }) => {
+  const { address } = useStateContext();
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleFormChange = (e) => {
@@ -129,8 +131,9 @@ export const CampaignForm = ({ handleSubmit }) => {
               size="large"
               onChange={handleFormChange}
               sx={{ textTransform: "inherit", height: 50 }}
+              disabled={!address}
             >
-              Submit new compaign
+              {address ? "Submit new compaign" : "Connect wallet to create"}
             </Button>
           </Grid>
 

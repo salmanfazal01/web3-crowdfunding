@@ -23,6 +23,7 @@ const StatCard = ({ title, subtitle }) => {
         textAlign: "center",
         height: "100%",
         minHeight: 80,
+        minWidth: 130,
       }}
     >
       <Stack alignItems="center" justifyContent="center" sx={{ flex: 1 }}>
@@ -220,6 +221,11 @@ const CampaignDetails = () => {
               >
                 {address ? "Fund Campaign" : "Connect wallet to donate"}
               </MainButton>
+
+              <Typography variant="caption" color="error">
+                DO NOT SEND REAL ETH, YOU WILL LOSE IT ALL. USE THE GOERLI TEST
+                NETWORK INSTEAD.
+              </Typography>
             </Stack>
           </Paper>
         </Grid>

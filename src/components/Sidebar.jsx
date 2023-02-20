@@ -5,17 +5,20 @@ import {
   ListItem,
   ListItemButton,
   ListItemIcon,
+  ListItemText,
   Tooltip,
 } from "@mui/material";
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { drawerWidth, navlinks } from "../constants";
+import { useStateContext } from "../context";
 import { LogoMain } from "../utils/images";
 
 const Sidebar = ({ window }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const { connect, address, mobileOpen, setMobileOpen } = useStateContext();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -26,6 +29,13 @@ const Sidebar = ({ window }) => {
 
   const drawer = (
     <div>
+      <Box sx={{ display: "flex", justifyContent: "center", pt: 3, pb: 2 }}>
+        <img
+          src={LogoMain}
+          style={{ width: "100%", maxHeight: "45px", objectFit: "contain" }}
+        />
+      </Box>
+
       <List>
         {navlinks.map(({ name, link, disabled, icon: Icon }, index) => (
           <ListItem key={name} disablePadding>
@@ -100,13 +110,6 @@ const Sidebar = ({ window }) => {
         }}
         open
       >
-        <Box sx={{ display: "flex", justifyContent: "center", pt: 3, pb: 2 }}>
-          <img
-            src={LogoMain}
-            style={{ width: "100%", maxHeight: "50px", objectFit: "contain" }}
-          />
-        </Box>
-
         {drawer}
       </Drawer>
     </Box>

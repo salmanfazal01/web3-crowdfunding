@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 import {
   useAddress,
@@ -7,10 +7,19 @@ import {
   useMetamask,
 } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
+import { useLocation } from "react-router-dom";
 
 const StateContext = createContext();
 
 export const StateContextProvider = ({ children }) => {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
   const { contract } = useContract(
     "0xD85c9812DBf306F65e75d7d490164D4C95F80FD2"
   );
@@ -123,6 +132,8 @@ export const StateContextProvider = ({ children }) => {
   return (
     <StateContext.Provider
       value={{
+        mobileOpen,
+        setMobileOpen,
         address,
         contract,
         connect,

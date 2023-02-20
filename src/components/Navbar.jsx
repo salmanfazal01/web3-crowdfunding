@@ -3,6 +3,7 @@ import {
   AppBar,
   Box,
   Container,
+  Hidden,
   IconButton,
   InputAdornment,
   TextField,
@@ -13,10 +14,11 @@ import { drawerWidth, navbarHeight } from "../constants";
 import { useStateContext } from "../context";
 import { Person } from "../utils/images";
 import MainButton from "./MainButton";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { connect, address } = useStateContext();
+  const { connect, address, mobileOpen, setMobileOpen } = useStateContext();
 
   return (
     <AppBar
@@ -39,26 +41,34 @@ const Navbar = () => {
           alignItems: "center",
         }}
       >
-        <TextField
-          placeholder="Search for campaigns..."
-          sx={{
-            width: "45ch",
-            backgroundColor: "background.paper",
-            border: "none",
-            "& fieldset": { border: "none" },
-            borderRadius: "10px",
-          }}
-          InputProps={{
-            sx: {
-              height: "50px",
-            },
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon sx={{ fontSize: 20, color: "lightgrey" }} />
-              </InputAdornment>
-            ),
-          }}
-        />
+        <Hidden smUp>
+          <IconButton onClick={() => setMobileOpen(true)}>
+            <MenuIcon />
+          </IconButton>
+        </Hidden>
+
+        <Hidden smDown>
+          <TextField
+            placeholder="Search for campaigns..."
+            sx={{
+              width: "45ch",
+              backgroundColor: "background.paper",
+              border: "none",
+              "& fieldset": { border: "none" },
+              borderRadius: "10px",
+            }}
+            InputProps={{
+              sx: {
+                height: "50px",
+              },
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon sx={{ fontSize: 20, color: "lightgrey" }} />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Hidden>
 
         <Box
           sx={{

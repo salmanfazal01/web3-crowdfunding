@@ -21,9 +21,11 @@ const Home = () => {
 
   return (
     <Paper sx={{ p: 3, pb: 5, borderRadius: 3 }}>
-      <Typography variant="h6">All Campaigns ({campaigns.length})</Typography>
+      <Typography variant="h6" sx={{ pb: { xs: 2, md: 4 } }}>
+        All Campaigns ({campaigns.length})
+      </Typography>
 
-      <Grid container spacing={5} sx={{ mt: 3 }}>
+      <Grid container spacing={5}>
         {campaigns.map((campaign, i) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
             <CampaignCard {...campaign} />
