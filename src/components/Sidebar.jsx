@@ -5,10 +5,10 @@ import {
   ListItem,
   ListItemButton,
   ListItemIcon,
-  ListItemText,
+  Stack,
   Tooltip,
 } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { drawerWidth, navlinks } from "../constants";
 import { useStateContext } from "../context";
@@ -28,7 +28,7 @@ const Sidebar = ({ window }) => {
     window !== undefined ? () => window().document.body : undefined;
 
   const drawer = (
-    <div>
+    <Stack sx={{ height: "inherit" }}>
       <Box sx={{ display: "flex", justifyContent: "center", pt: 3, pb: 2 }}>
         <img
           src={LogoMain}
@@ -36,40 +36,45 @@ const Sidebar = ({ window }) => {
         />
       </Box>
 
-      <List>
-        {navlinks.map(({ name, link, disabled, icon: Icon }, index) => (
-          <ListItem key={name} disablePadding>
-            <Tooltip title={name}>
-              <ListItemButton
-                disabled={disabled}
-                disableGutters
-                onClick={() => {
-                  if (!disabled) {
-                    navigate(link);
-                  }
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    my: 1.5,
+      <List sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+        {navlinks.map(({ name, link, disabled, icon: Icon, flex }, index) => {
+          if (flex) {
+            return <Box key={index} sx={{ flex: 1 }}></Box>;
+          }
+          return (
+            <ListItem key={index} disablePadding>
+              <Tooltip title={name}>
+                <ListItemButton
+                  disabled={disabled}
+                  disableGutters
+                  onClick={() => {
+                    if (!disabled) {
+                      navigate(link);
+                    }
                   }}
                 >
-                  <Icon
+                  <ListItemIcon
                     sx={{
-                      fontSize: 28,
-                      color: pathname === link ? "primary.main" : "inherit",
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      my: 1.5,
                     }}
-                  />
-                </ListItemIcon>
-              </ListItemButton>
-            </Tooltip>
-          </ListItem>
-        ))}
+                  >
+                    <Icon
+                      sx={{
+                        fontSize: 28,
+                        color: pathname === link ? "primary.main" : "inherit",
+                      }}
+                    />
+                  </ListItemIcon>
+                </ListItemButton>
+              </Tooltip>
+            </ListItem>
+          );
+        })}
       </List>
-    </div>
+    </Stack>
   );
 
   return (

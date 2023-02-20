@@ -28,6 +28,7 @@ export const navlinks = [
     disabled: true,
     icon: SellIcon,
   },
+  { flex: true },
   {
     name: "My Campaigns",
     link: "/profile",
